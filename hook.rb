@@ -5,9 +5,10 @@ get '/' do
 end
 
 post '/' do
-  puts "=================================================="
-  params.each do |k, v|
-    puts "#{k} => #{v}"
+  if params['commits'][0]['branch'] == ENV['branch']
+    uri = URI("https://www.codeship.io/hook/ENV['project_uuid']")
+    Net::HTTP.post_form(uri, params)
+  else
+    ""
   end
-  puts "=================================================="
 end
